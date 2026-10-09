@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "planmetric"
+version = "0.1.0"
+description = "Evidence-based floor-plan scale calibration from dimension text and geometry"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{name = "crown-sports"}]
+dependencies = ["numpy>=1.26,<3", "scipy>=1.13,<2", "opencv-python-headless>=4.10,<6", "Pillow>=10.1,<13"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "ruff>=0.11,<1", "build>=1.2,<2"]
+
+[project.scripts]
+planmetric = "planmetric.cli:main"
+
+[project.urls]
+Repository = "https://github.com/crown-sports/planmetric"
+Issues = "https://github.com/crown-sports/planmetric/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]

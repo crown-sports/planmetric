@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software, cite this repository and version."
+type: software
+title: "PlanMetric"
+authors:
+  - name: "PlanMetric contributors"
+version: 0.1.0
+date-released: 2026-10-09
+repository-code: "https://github.com/crown-sports/planmetric"
+url: "https://github.com/crown-sports/planmetric"
+license: MIT
+abstract: "Convert dimension evidence into per-axis physical scales, with residuals and rejection reasons. No real datasets or model weights are distributed."
