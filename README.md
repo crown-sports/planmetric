@@ -13,7 +13,7 @@ This generated example supplies text boxes and dimension spans. The actual solve
 Python 3.10+. No GPU or pretrained model required.
 
 ```bash
-python -m pip install "git+https://github.com/crown-sports/planmetric.git@v0.1.0"
+python -m pip install "git+https://github.com/crown-sports/planmetric.git@v0.2.0"
 planmetric demo --output runs/demo
 ```
 
@@ -45,7 +45,7 @@ Use the original-coordinate geometry from [WallGraph](https://github.com/crown-s
 
 ## Measure wall paths and room areas
 
-Available from a source checkout; existing tagged releases do not include this command.
+Available in v0.2.0; install the release above to use this command.
 
 ```bash
 planmetric measure --observations /private/dimensions.json \

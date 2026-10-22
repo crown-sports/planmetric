@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.2.0 — 2026-10-22
 
 - Add `measure` for WallGraph polylines and PlanRegions pixel areas, with original-grid validation, independent axis calibration, full evidence and source digests.
 

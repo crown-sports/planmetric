@@ -14,7 +14,7 @@ from .domain import (
 from .pipeline import OCRProvider, SpanDetector, calibrate, inspect_image
 from .units import DimensionParseError, parse_dimension
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __all__ = [
     "AxisCalibration",
     "CalibrationResult",

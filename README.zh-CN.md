@@ -13,7 +13,7 @@
 Python 3.10 或更新版本，无需 GPU 或预训练模型。
 
 ```bash
-python -m pip install "git+https://github.com/crown-sports/planmetric.git@v0.1.0"
+python -m pip install "git+https://github.com/crown-sports/planmetric.git@v0.2.0"
 planmetric demo --output runs/demo
 ```
 
@@ -64,6 +64,6 @@ python tools/release.py --check
 
 ## 批量测量墙线与房间
 
-源码版新增 `planmetric measure --observations /private/dimensions.json --geometry runs/regions/regions.json --output runs/measurements.json`。
+v0.2.0 新增 `planmetric measure --observations /private/dimensions.json --geometry runs/regions/regions.json --output runs/measurements.json`。
 支持 PlanRegions 精确像素面积和 WallGraph 折线路径，校验原图尺寸，保留校准证据与输入摘要。
 不同 x/y 比例分别计算；所需坐标轴校准未通过时返回错误，不猜测物理尺寸。
