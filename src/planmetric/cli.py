@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from dataclasses import replace
@@ -14,6 +15,7 @@ from .adapters import AdapterError, OrthogonalTickDetector, TesseractOCR
 from .config import MetricConfig
 from .demo import create_demo_case
 from .io import observations_to_dict, read_observations, write_json, write_result
+from .measurement import measure_geometry
 from .pipeline import calibrate, inspect_image
 
 
@@ -39,12 +41,49 @@ def _parser() -> argparse.ArgumentParser:
     demo = commands.add_parser("demo", help="Generate observations; reject planted OCR errors")
     demo.add_argument("--output", required=True, type=Path)
     demo.add_argument("--save-image", action="store_true", help="Also write a generated input PNG")
+    measure = commands.add_parser(
+        "measure", help="Calibrate and measure upstream wall/room geometry"
+    )
+    measure.add_argument("--observations", required=True, type=Path)
+    measure.add_argument("--geometry", required=True, type=Path)
+    measure.add_argument("--output", required=True, type=Path)
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     arguments = _parser().parse_args(argv)
     try:
+        if arguments.command == "measure":
+            for source in (arguments.observations, arguments.geometry):
+                if arguments.output.resolve() == source.resolve() or (
+                    arguments.output.exists()
+                    and source.exists()
+                    and arguments.output.samefile(source)
+                ):
+                    raise ValueError("measurement output must not overwrite an input")
+            texts, spans, config, image_size = read_observations(arguments.observations)
+            if image_size is None:
+                raise ValueError("measurement observations require image_size for alignment checks")
+            result = calibrate(texts, spans, config)
+            geometry = json.loads(arguments.geometry.read_text(encoding="utf-8"))
+            report = measure_geometry(result, geometry, image_size=image_size)
+            report["provenance"] = {
+                "observations_sha256": hashlib.sha256(
+                    arguments.observations.read_bytes()
+                ).hexdigest(),
+                "geometry_sha256": hashlib.sha256(arguments.geometry.read_bytes()).hexdigest(),
+            }
+            write_json(report, arguments.output)
+            print(
+                json.dumps(
+                    {
+                        "measurement_count": len(report["measurements"]),
+                        "output": str(arguments.output),
+                    },
+                    allow_nan=False,
+                )
+            )
+            return 0
         if arguments.command == "calibrate":
             texts, spans, config, image_size = read_observations(arguments.observations)
             if arguments.default_unit:
@@ -89,7 +128,7 @@ def main(argv: list[str] | None = None) -> int:
             )
         )
         return 0
-    except (AdapterError, ValueError, TypeError, KeyError, OSError) as exc:
+    except (AdapterError, ValueError, TypeError, KeyError, OSError, OverflowError) as exc:
         print(f"planmetric: {exc}", file=sys.stderr)
         return 2
 
