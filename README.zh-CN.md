@@ -2,7 +2,11 @@
 
 **把图纸像素换成长度和面积，每个比例尺都有据可查。**
 
+面向已有像素几何和尺寸观测的开发者。先判断这些尺寸是否足以支持比例尺，再向复核者展示墙长或房间面积。
+
 [English](README.md) · [发布版本](https://github.com/crown-sports/planmetric/releases)
+
+[四库选择与完整试用：测量、结构变化、封门](https://github.com/crown-sports/planportals/blob/main/docs/workflow.zh-CN.md) · [实现证据与产品边界](docs/product.md)
 
 ![生成户型图、尺寸采用与剔除、实际比例尺与面积换算结果](examples/demo.png)
 
@@ -43,6 +47,12 @@ planmetric detect --image /private/plan.png --ocr tesseract \
 
 可接 [WallGraph](https://github.com/crown-sports/wallgraph) 和 [PlanRegions](https://github.com/crown-sports/planregions) 的原图坐标几何。保留图纸和测量叠加图，方便使用者复核。
 
+## 批量测量墙线与房间
+
+v0.2.0 新增 `planmetric measure --observations /private/dimensions.json --geometry runs/regions/regions.json --output runs/measurements.json`。
+支持 PlanRegions 精确像素面积和 WallGraph 折线路径，校验原图尺寸，保留校准证据与输入摘要。
+不同 x/y 比例分别计算；所需坐标轴校准未通过时返回错误，不猜测物理尺寸。
+
 ## 技术与实测边界
 
 一对一几何匹配 → 确定性 RANSAC 式比例假设 → 横纵分别拟合 → 检查条件后换算。重复来源的尺寸只计一次。[方法与出处](docs/methods.md) · [架构](docs/architecture.md)。
@@ -61,9 +71,3 @@ python tools/release.py --check
 [贡献](CONTRIBUTING.md) · [安全报告](SECURITY.md) · [下载内容](docs/releasing.md)
 
 代码使用 MIT。唯一图片是程序生成的复合效果图；真实图纸、标注、数据集和权重不随项目发布。[来源说明](NOTICE.md)。
-
-## 批量测量墙线与房间
-
-v0.2.0 新增 `planmetric measure --observations /private/dimensions.json --geometry runs/regions/regions.json --output runs/measurements.json`。
-支持 PlanRegions 精确像素面积和 WallGraph 折线路径，校验原图尺寸，保留校准证据与输入摘要。
-不同 x/y 比例分别计算；所需坐标轴校准未通过时返回错误，不猜测物理尺寸。
