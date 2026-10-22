@@ -95,10 +95,23 @@ planmetric calibrate --observations runs/demo/observations.json --output runs/re
 planmetric detect --image runs/demo/generated.png --ocr tesseract --output runs/inspection
 ```
 
-Every command writes `calibration.json` and `evidence.svg`. The SVG contains dimension geometry and hoverable evidence captions; it does not embed the source image. `demo` also writes generated `observations.json`; `--save-image` adds `generated.png`. Standard output is a JSON summary of axis statuses, scales, support counts, anisotropy, and report paths.
+`demo`, `calibrate`, and `detect` write `calibration.json` and `evidence.svg`. The SVG contains dimension geometry and hoverable evidence captions; it does not embed the source image. `demo` also writes generated `observations.json`; `--save-image` adds `generated.png`. Standard output is a JSON summary of axis statuses, scales, support counts, anisotropy, and report paths.
 
 An incomplete or conflicting calibration is a successful diagnostic run, with process exit code **0**. Inspect the axis statuses before measuring. Invalid input, inaccessible files, or a failed local OCR dependency produce an error on stderr and exit code **2**.
 
 `detect` accepts `--tesseract PATH`, `--language eng`, and `--psm 3|6|11|12` (default 11). Tesseract and its language data must already be installed. There is no cloud OCR or automatic model download. The supplied detector handles thin, continuous, orthogonal dimension lines with perpendicular endpoint ticks on both sides; other line styles should use imported spans. OCR observations retain `role="unknown"`, so unmarked numbers remain excluded even with `--default-unit`.
 
 For Python integration, `inspect_image(path, *, ocr, detector, config=None)` accepts the [adapter contracts](architecture.md). `TesseractOCR` and `OrthogonalTickDetector` are available from `planmetric.adapters`.
+
+## Measure upstream geometry
+
+`planmetric measure --observations dimensions.json --geometry regions.json --output measurements.json`
+recalibrates original observations and accepts `planregions/1` or `wallgraph/1` geometry.
+Both inputs must declare matching original image dimensions; coordinates must be pixel-based
+with top-left origin. Wall length sums each separately calibrated path displacement.
+Region area converts the supplied instance pixel count, not its simplified contour.
+The `planmetric-measurements/1` result retains calibration evidence and source digests.
+Inputs remain caller-owned; the command refuses to overwrite either input.
+
+Python: `planmetric.measurement.measure_geometry(result, payload, image_size=(width, height))`.
+The API returns a dictionary and raises on incompatible grids, malformed geometry or missing scales.

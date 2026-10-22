@@ -43,6 +43,22 @@ The image adapters propose OCR text and orthogonal dimension spans. They can mis
 
 Use the original-coordinate geometry from [WallGraph](https://github.com/crown-sports/wallgraph) or [PlanRegions](https://github.com/crown-sports/planregions). Keep the source drawing and measurement overlay available for review.
 
+## Measure wall paths and room areas
+
+Available from a source checkout; existing tagged releases do not include this command.
+
+```bash
+planmetric measure --observations /private/dimensions.json \
+  --geometry runs/regions/regions.json --output runs/measurements.json
+```
+
+Accepts `planregions/1` room exports or `wallgraph/1` wall exports. Observations must
+declare the same `image_size`; coordinate contracts are checked before measurement.
+The report retains the full calibration evidence and input digests. Room area uses
+instance pixel counts, preserving excluded holes; wall length sums calibrated path
+segments, including unequal x/y scales. Required axes without accepted calibration
+fail with exit 2. These are conversions of supplied evidence, not verified site measurements.
+
 ## Method and measured boundary
 
 One-to-one geometric assignment → deterministic RANSAC-style scalar hypotheses → supported fit per axis → checked conversion. Distinct source evidence is counted once. [Methods and references](docs/methods.md) · [Architecture](docs/architecture.md).
