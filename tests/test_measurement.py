@@ -86,3 +86,19 @@ def test_cli_evidence_measurements_and_invalid_exit(tmp_path):
     assert source.read_text() == original
     source.write_text("{}")
     assert main(args) == 2
+
+
+def test_native_dataclass_export_tuples_are_accepted_without_json_roundtrip():
+    _, result = fixture()
+    # WallResult.to_dict uses asdict for segments, preserving the tuple of points.
+    walls = geometry(
+        "wallgraph/1",
+        segments=[
+            {
+                "id": 0,
+                "points": ({"x": 10.0, "y": 10.0}, {"x": 13.0, "y": 14.0}, {"x": 10.0, "y": 10.0}),
+            }
+        ],
+    )
+    report = measure_geometry(result, walls, image_size=(1200, 900))
+    assert report["measurements"] == [{"id": 0, "length_mm": 100.0}]

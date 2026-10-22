@@ -37,7 +37,7 @@ def measure_geometry(
         seen.add(item["id"])
         if key == "segments":
             points = item.get("points")
-            if not isinstance(points, list) or len(points) < 2:
+            if not isinstance(points, (list, tuple)) or len(points) < 2:
                 raise ValueError("wall paths need at least two points")
             parsed = []
             for point in points:
