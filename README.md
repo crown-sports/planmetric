@@ -2,7 +2,11 @@
 
 **Turn dimension evidence into measurable lengths and areas. See which dimensions support the scale.**
 
+For developers who already have pixel geometry and dimension observations. Start here to decide whether the supplied dimensions support a scale before showing lengths or areas to a reviewer.
+
 [中文](README.zh-CN.md) · [Releases](https://github.com/crown-sports/planmetric/releases)
+
+[Choose a package and run one shared workflow](https://github.com/crown-sports/planportals/blob/main/docs/workflow.md) · [Evidence and product boundaries](docs/product.md)
 
 ![Generated furnished plan, accepted and rejected dimensions, and actual calibrated measurement](examples/demo.png)
 
