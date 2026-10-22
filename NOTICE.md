@@ -4,4 +4,6 @@ The package was independently implemented around text/span observations, matchin
 
 RANSAC-style consensus is an established model-fitting approach. This implementation enumerates scale hypotheses deterministically rather than claiming a new RANSAC algorithm. Linear assignment is provided by SciPy; NumPy, OpenCV, Pillow and optional Tesseract retain their own licenses. See [methods and references](docs/methods.md).
 
-The single public `examples/demo.png` contains original code-generated geometry and actual library results. It is not copied from a real drawing or dataset. No real drawings, annotations, pretrained models or weights are included. Generated observation tests do not establish real-image OCR accuracy.
+The original `examples/demo.png` contains original code-generated geometry and actual library results. It is not copied from a real drawing or dataset. No real drawings, annotations, pretrained models or weights are included. Generated observation tests do not establish real-image OCR accuracy.
+
+`examples/workflow.png` is rendered from the generated, model-free four-package walkthrough. The source mask, labels and JSON come from actual tool outputs, not real drawings or detector predictions. The renderer is [render_workflow.py](https://github.com/crown-sports/planportals/blob/main/tools/render_workflow.py).
