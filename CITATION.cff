@@ -4,8 +4,8 @@ type: software
 title: "PlanMetric"
 authors:
   - name: "PlanMetric contributors"
-version: 0.2.0
-date-released: 2026-10-22
+version: 0.2.1
+date-released: 2026-10-23
 repository-code: "https://github.com/crown-sports/planmetric"
 url: "https://github.com/crown-sports/planmetric"
 license: MIT

@@ -2,7 +2,7 @@
 
 用图上的尺寸标注校准像素比例，再测墙线长度和房间面积。
 
-[English](README.md) · [v0.2.0](https://github.com/crown-sports/planmetric/releases/tag/v0.2.0)
+[English](README.md) · [v0.2.1](https://github.com/crown-sports/planmetric/releases/tag/v0.2.1)
 
 ![左侧显示房间像素数量，右侧为同一批区域换算后的平方米面积](examples/workflow.png)
 
@@ -13,7 +13,7 @@
 Python 3.10+，不需要 GPU 或预训练模型。
 
 ```bash
-python -m pip install "git+https://github.com/crown-sports/planmetric.git@v0.2.0"
+python -m pip install "git+https://github.com/crown-sports/planmetric.git@v0.2.1"
 planmetric demo --output runs/demo
 ```
 

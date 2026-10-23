@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.2.1 — 2026-10-23 (prerelease)
 
 - Refuse calibration and detection outputs that would overwrite supplied observations or images, including hard links and symlinks.
 

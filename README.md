@@ -2,7 +2,7 @@
 
 Use drawing dimensions to calibrate pixel geometry, then measure wall lengths and room areas.
 
-[中文](README.zh-CN.md) · [v0.2.0](https://github.com/crown-sports/planmetric/releases/tag/v0.2.0)
+[中文](README.zh-CN.md) · [v0.2.1](https://github.com/crown-sports/planmetric/releases/tag/v0.2.1)
 
 ![Room pixel counts beside the same regions labeled with calibrated square-meter areas](examples/workflow.png)
 
@@ -13,7 +13,7 @@ Generated example: **143,221 living-room pixels → 14.32 m²** at 10 mm/px, wit
 Python 3.10+. No GPU or pretrained model required.
 
 ```bash
-python -m pip install "git+https://github.com/crown-sports/planmetric.git@v0.2.0"
+python -m pip install "git+https://github.com/crown-sports/planmetric.git@v0.2.1"
 planmetric demo --output runs/demo
 ```
 
