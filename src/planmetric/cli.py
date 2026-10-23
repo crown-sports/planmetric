@@ -19,6 +19,20 @@ from .measurement import measure_geometry
 from .pipeline import calibrate, inspect_image
 
 
+def _protect_inputs(output: Path, names: tuple[str, ...], sources: tuple[Path | None, ...]) -> None:
+    for name in names:
+        target = output / name
+        for source in sources:
+            if source is not None and (
+                target.resolve() == source.resolve()
+                or (target.exists() and source.exists() and target.samefile(source))
+            ):
+                raise ValueError(
+                    f"output {target} would overwrite input {source}; "
+                    "choose a different --output directory"
+                )
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Calibrate floor-plan scales from dimension evidence"
@@ -84,6 +98,9 @@ def main(argv: list[str] | None = None) -> int:
                 )
             )
             return 0
+        if arguments.command in {"calibrate", "detect"}:
+            source = arguments.observations if arguments.command == "calibrate" else arguments.image
+            _protect_inputs(arguments.output, ("calibration.json", "evidence.svg"), (source,))
         if arguments.command == "calibrate":
             texts, spans, config, image_size = read_observations(arguments.observations)
             if arguments.default_unit:

@@ -17,6 +17,8 @@ python -m pip install "git+https://github.com/crown-sports/planmetric.git@v0.2.0
 planmetric demo --output runs/demo
 ```
 
+原始输入与结果请分开放；重复使用同一个输出目录，会替换其中生成的结果文件。
+
 打开 `runs/demo/evidence.svg` 和 `calibration.json`。这个独立校准示例故意放入了两条不一致的尺寸：
 
 ![尺寸标注中八组被接受、两组被拒绝，再换算房间尺寸](examples/demo.png)

@@ -17,6 +17,8 @@ python -m pip install "git+https://github.com/crown-sports/planmetric.git@v0.2.0
 planmetric demo --output runs/demo
 ```
 
+Keep original inputs in a separate folder. Reusing an output folder replaces its generated result files.
+
 Open `runs/demo/evidence.svg` and `calibration.json`. This separate calibration demo includes two deliberately inconsistent dimensions:
 
 ![Supplied dimensions, eight accepted pairs, two rejected pairs and a calibrated room](examples/demo.png)
